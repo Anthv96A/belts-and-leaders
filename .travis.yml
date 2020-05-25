@@ -1,0 +1,29 @@
+language: node_js
+node_js: node
+
+# We build PR's and branches, this tells travis to only build on the master branch or PR's that target the master branch
+branches:
+  only:
+  - master
+  - /^\d+\.x$/ # 1.x
+  - /^\d+\.x.x$/ # 1.x.x
+  - /^\d+\.\d+\.x$/ # 1.1.x
+
+addons:
+   apt:
+     packages:
+       # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+       - libgconf-2-4
+
+stages:
+  - test
+
+jobs:
+  fast_finish: true
+  include:
+    - stage: test
+      name: "lint"
+      script: 
+        - npm run lint
+    - name: "unit tests"
+      script: npm test
