@@ -14,6 +14,7 @@
     "import/no-unresolved": "off",
     "import/prefer-default-export":"warn",
     "import/order": "warn",
+    "curly": ["error", "multi-or-nest"],
     "indent": ["error", 2, {
       "VariableDeclarator": 2,
       "SwitchCase": 1
@@ -29,6 +30,7 @@
     "max-len": ["error", 140],
     "max-params": ["error", 5],
     "multiline-ternary": 1,
+    "no-nested-ternary": 0,
     "no-param-reassign": ["error", { "props": false }],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-restricted-syntax": "off",

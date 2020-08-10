@@ -28,7 +28,7 @@ export const createMaturityCategory = (createdMaturityCategory) => {
 
 export const updateMaturityCategory = (updatedMaturityCategory) => {
   return async (dispatch, getState) => {
-    const target = getState().maturitysCategories.find(s => s.id === updatedMaturityCategory.id);
+    const target = getState().maturityCategories.find(s => s.id === updatedMaturityCategory.id);
     if (!shouldUpdate(updatedMaturityCategory, target)) return Promise.resolve(updatedMaturityCategory);
     const maturityCategory = await httpProvider
       .updateAsync(routes.maturityCategoryRoot, updatedMaturityCategory.id, updatedMaturityCategory);

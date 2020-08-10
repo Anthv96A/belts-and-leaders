@@ -7,6 +7,6 @@ import maturityLevelsReducer from './maturityLevels';
 export default combineReducers({
   users: usersReducer,
   achievements: achievementsReducer,
-  maturitysCategories: maturityCategoriesReducer,
+  maturityCategories: maturityCategoriesReducer,
   maturityLevels: maturityLevelsReducer
 });
