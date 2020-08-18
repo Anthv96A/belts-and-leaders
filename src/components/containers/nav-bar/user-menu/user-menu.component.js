@@ -2,37 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Menu, MenuItem } from 'carbon-react/lib/components/menu';
 import Profile from 'carbon-react/lib/components/profile';
+import { AzureAD } from 'react-aad-msal';
 import StyledUserMenu from './user-menu.style';
+import authProvider from '../../../../azure/authProvider';
 
-const UserMenu = ({ user }) => {
-  if (!user?.name || !user?.email) return null;
-
-  const { name, email } = user;
+const UserMenu = ({ auth }) => {
   return (
-    <StyledUserMenu>
-      <Menu>
-        <MenuItem submenu={ (
-          <Profile
-            name={ name }
-            email={ email }
-            size='S'
-          />
-        ) }
-        >
-          <MenuItem href='#'>
-            View Profile
-          </MenuItem>
-          <MenuItem href='#'>
-            Logout
-          </MenuItem>
-        </MenuItem>
-      </Menu>
-    </StyledUserMenu>
+    <AzureAD provider={ authProvider }>{ctx => (
+      <StyledUserMenu>
+        <Menu>
+          { authRenderedContent(auth, ctx)}
+        </Menu>
+      </StyledUserMenu>
+    )}
+    </AzureAD>
   );
 };
 
+function authRenderedContent({ isAuth, account }, ctx) {
+  if (isAuth === false) return null;
+
+  const submenu = <Profile name={ account.name } size='S' />;
+
+  return (
+    <MenuItem submenu={ submenu }>
+      <MenuItem href='#'> View Profile</MenuItem>
+      <MenuItem href='#' onClick={ ctx.logout }>Logout</MenuItem>
+    </MenuItem>
+  );
+}
+
 UserMenu.propTypes = {
-  user: PropTypes.object
+  auth: PropTypes.object
 };
 
 export default UserMenu;

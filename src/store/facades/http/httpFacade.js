@@ -1,13 +1,13 @@
 import axios from 'axios';
 import AxiosHttp from './AxiosHttp';
-import mockServer from './MockServer';
+// import mockServer from './MockServer';
 
 class HttpFacade {
   getProvider() {
     switch (process.env.NODE_ENV) {
       case 'development':
       default:
-        mockServer();
+        // mockServer();
         return new AxiosHttp(createAxiosInstance());
     }
   }

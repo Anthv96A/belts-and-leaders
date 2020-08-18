@@ -4,7 +4,7 @@ import { StyledLogoWrapper, StyledLogo } from './logo.style.js';
 const Logo = () => {
   return (
     <StyledLogoWrapper>
-      <StyledLogo src='./logo192.png' alt='sage-logo' />
+      <StyledLogo src='./Sage.png' alt='sage-logo' />
     </StyledLogoWrapper>
   );
 };

@@ -7,13 +7,20 @@ import rootReducer from './store/reducers/index';
 import './index.css';
 import App from './app';
 import { unregister } from './serviceWorker';
+import { AzureAD } from 'react-aad-msal';
+import authProvider from './azure/authProvider';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const app = (
   <StrictMode>
     <Provider store={ store }>
-      <App />
+      <AzureAD
+        provider={ authProvider }
+        reduxStore={ store }
+      >
+        {() => <App />}
+      </AzureAD>
     </Provider>
   </StrictMode>
 );

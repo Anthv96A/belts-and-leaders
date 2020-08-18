@@ -5,26 +5,26 @@ import Logo from './logo';
 import { StyledNavBar, NavChildWrapper } from './nav-bar.style';
 import UserMenu from './user-menu';
 
-const NavBar = ({ user }) => {
+const NavBar = ({ auth }) => {
   return (
     <StyledNavBar>
       <NavChildWrapper align='left'>
         <Logo />
-        CHAWSY
+        Security Champions
       </NavChildWrapper>
       <NavChildWrapper align='right'>
-        <UserMenu user={ user } />
+        <UserMenu auth={ auth } />
       </NavChildWrapper>
     </StyledNavBar>
   );
 };
 
 const mapStateToProps = state => ({
-  user: state.users[1] // how do I map to the logged in
+  auth: state.auth
 });
 
 NavBar.propTypes = {
-  user: PropTypes.object // add the shape
+  auth: PropTypes.object
 };
 
 export default connect(mapStateToProps)(NavBar);
