@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "camelcase": "^5.3.1",
-    "carbon-react": "^35.1.0",
+    "carbon-react": "^38.0.1",
     "draft-js": "^0.11.6",
     "formik": "^2.1.4",
     "fs-extra": "^8.1.0",
