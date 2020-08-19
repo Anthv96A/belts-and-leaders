@@ -7,7 +7,6 @@ COPY package*.json ./
 RUN npm install
 
 COPY ./config ./config
-COPY ./false ./false
 COPY ./public ./public
 COPY ./scripts ./scripts
 COPY ./src ./src
