@@ -142,7 +142,7 @@ const LeaderBoard = ({ users, getUsersAsync }) => {
           pageSize={ 10 }
           currentPage={ currentPage }
           onPagination={ (next, size) => handlePagination(next, size) }
-          pageSizeSelectionOptions={ [{ id: '5', name: 5 }, { id: '10', name: 10 }] }
+          pageSizeSelectionOptions={ [{ id: '5', name: '5' }, { id: '10', name: '10' }] }
         />
       </>
     );

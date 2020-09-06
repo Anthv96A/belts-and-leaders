@@ -8,13 +8,14 @@ import authProvider from '../../../../azure/authProvider';
 
 const UserMenu = ({ auth }) => {
   return (
-    <AzureAD provider={ authProvider }>{ctx => (
-      <StyledUserMenu>
-        <Menu>
-          { authRenderedContent(auth, ctx)}
-        </Menu>
-      </StyledUserMenu>
-    )}
+    <AzureAD provider={ authProvider }>{
+      ctx => (
+        <StyledUserMenu>
+          <Menu>
+            { authRenderedContent(auth, ctx)}
+          </Menu>
+        </StyledUserMenu>
+      )}
     </AzureAD>
   );
 };
@@ -22,7 +23,13 @@ const UserMenu = ({ auth }) => {
 function authRenderedContent({ isAuth, account }, ctx) {
   if (isAuth === false) return null;
 
-  const submenu = <Profile name={ account.name } size='S' />;
+  const submenu = (
+    <Profile
+      email=''
+      name={ account.name }
+      size='S'
+    />
+  );
 
   return (
     <MenuItem submenu={ submenu }>
