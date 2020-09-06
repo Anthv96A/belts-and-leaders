@@ -11,8 +11,8 @@ function App() {
   return (
     <ThemeProvider theme={ mintTheme }>
       <StyledApp className='App'>
-        <NavBar />
         <AppWrapper>
+          <NavBar />
           <Banner />
         </AppWrapper>
       </StyledApp>
