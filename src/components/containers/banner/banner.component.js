@@ -36,7 +36,7 @@ const Banner = ({ auth }) => {
           </Tab>
           { auth.isAuth && (
             <Tab title='Profile' tabId='profile'>
-              <UserProfile />
+              <UserProfile name={ auth.account.name } />
             </Tab>
           )}
         </Tabs>

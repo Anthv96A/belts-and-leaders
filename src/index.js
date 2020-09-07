@@ -2,13 +2,13 @@ import React, { StrictMode } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { AzureAD } from 'react-aad-msal';
 import thunk from 'redux-thunk';
+import authProvider from './azure/authProvider';
 import rootReducer from './store/reducers/index';
 import './index.css';
 import App from './app';
 import { unregister } from './serviceWorker';
-import { AzureAD } from 'react-aad-msal';
-import authProvider from './azure/authProvider';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 

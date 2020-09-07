@@ -14,7 +14,7 @@ const config = {
 };
 
 const authParams = {
-  scope: c.scopes
+  scopes: c.scopes
 };
 
 const options = {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Profile from 'carbon-react/lib/components/profile';
 import Icon from 'carbon-react/lib/components/icon';
 import {
@@ -15,7 +15,7 @@ import {
   Stat
 } from './user-profile.style';
 
-const UserProfile = () => {
+const UserProfile = ({ name }) => {
   const [editMode, setEditMode] = useState(false);
   return (
     <StyledProfileWrapper>
@@ -24,7 +24,7 @@ const UserProfile = () => {
           <StyledProfile>
             <Profile
               email=''
-              name='foo'
+              name={ name }
               size='XXL'
             />
           </StyledProfile>
@@ -60,3 +60,8 @@ const UserProfile = () => {
 };
 
 export default UserProfile;
+
+
+UserProfile.propTypes = {
+  name: PropTypes.string
+};
