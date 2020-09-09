@@ -7,7 +7,7 @@ const httpProvider = httpFacade.getProvider();
 
 export const retrieveUsers = () => {
   return async (dispatch) => {
-    const users = await httpProvider.getAsync(routes.usersRoot);
+    const { users } = await httpProvider.getAsync(routes.usersRoot);
     dispatch({ type: types.RETRIEVE_USERS, payload: { users } });
     return users;
   };
