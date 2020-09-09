@@ -11,9 +11,7 @@ const UserMenu = ({ auth }) => {
     <AzureAD provider={ authProvider }>{
       ctx => (
         <StyledUserMenu>
-          <Menu>
-            { authRenderedContent(auth, ctx)}
-          </Menu>
+          { authRenderedContent(auth, ctx)}
         </StyledUserMenu>
       )}
     </AzureAD>
@@ -32,10 +30,12 @@ function authRenderedContent({ isAuth, account }, ctx) {
   );
 
   return (
-    <MenuItem submenu={ submenu }>
-      <MenuItem href='#'> View Profile</MenuItem>
-      <MenuItem href='#' onClick={ ctx.logout }>Logout</MenuItem>
-    </MenuItem>
+    <Menu>
+      <MenuItem submenu={ submenu }>
+        <MenuItem href='#'> View Profile</MenuItem>
+        <MenuItem href='#' onClick={ ctx.logout }>Logout</MenuItem>
+      </MenuItem>
+    </Menu>
   );
 }
 
