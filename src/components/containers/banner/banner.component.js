@@ -11,8 +11,9 @@ import Leaderboard from '../leaderboard';
 import authProvider from '../../../azure/authProvider';
 import LogAchievement from '../log-achievement';
 import UserProfile from '../user-profile';
+import { createAchievement } from '../../../store/actions/achievements';
 
-const Banner = ({ auth }) => {
+const Banner = ({ auth, logAchievement }) => {
   const [open, setOpen] = useState(false);
 
   const displayText = (auth.isAuth && auth.account.name)
@@ -41,20 +42,28 @@ const Banner = ({ auth }) => {
           )}
         </Tabs>
       </BannerWrapper>
-      <LogAchievement open={ open } onClose={ () => setOpen(false) } />
+      <LogAchievement
+        logAchievement={ logAchievement } open={ open }
+        onClose={ () => setOpen(false) }
+      />
     </>
   );
 };
 
 Banner.propTypes = {
-  auth: PropTypes.object
+  auth: PropTypes.object,
+  logAchievement: PropTypes.func
 };
 
 const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps)(Banner);
+const mapDispatchToProps = dispatch => ({
+  logAchievement: achievement => dispatch(createAchievement(achievement))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Banner);
 
 /* <Button
   to='' renderRouterLink={ routerProps => <RouterLink { ...routerProps } /> }

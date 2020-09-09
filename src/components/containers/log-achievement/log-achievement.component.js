@@ -8,32 +8,40 @@ import DateInput from 'carbon-react/lib/__experimental__/components/date';
 import Button from 'carbon-react/lib/components/button';
 import { StyledHeading, StyledInlineWrapper } from './log-achievement.style';
 
-const LogAchievement = ({ open, onClose }) => {
-  const [values, setValues] = useState({
-    category: '',
-    maturity: '',
-    date: '',
-    description: ''
-  });
+const initialState = {
+  category: '',
+  maturityLevelId: '',
+  achievementDate: '',
+  comment: ''
+};
+
+const LogAchievement = ({ open, onClose, logAchievement }) => {
+  const [values, setValues] = useState(initialState);
 
   const [isDisabled, setIsDisabled] = useState(
-    !values.category.length || !values.maturity.length || !values.date.length
+    !values.category.length || !values.maturityLevelId.length || !values.achievementDate.length
   );
 
   const handleChange = useCallback((id, e) => {
-    const newValue = id === 'date' ? e.target.value.rawValue : e.target.value;
+    const newValue = id === 'achievementDate' ? e.target.value.rawValue : e.target.value;
 
     setValues({ ...values, [id]: newValue });
   }, [values]);
 
-  const handleSubmit = () => {
-    return null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await logAchievement(values);
+    } finally {
+      setValues(initialState);
+      onClose();
+    }
   };
 
   useEffect(() => {
-    if (values.category.length && values.maturity.length && values.date.length) setIsDisabled(false);
+    if (values.category.length && values.maturityLevelId.length && values.achievementDate.length) setIsDisabled(false);
     else if (!isDisabled) setIsDisabled(true);
-  }, [isDisabled, values.category.length, values.maturity.length, values.date.length]);
+  }, [isDisabled, values.category.length, values.maturityLevelId.length, values.achievementDate.length]);
 
   return (
     <Dialog
@@ -69,10 +77,10 @@ const LogAchievement = ({ open, onClose }) => {
         <StyledInlineWrapper>
           <StyledInlineWrapper align='left'>
             <Select
-              id='maturity'
-              name='maturity'
-              value={ values.maturity }
-              onChange={ e => handleChange('maturity', e) }
+              id='maturityLevelId'
+              name='maturityLevelId'
+              value={ values.maturityLevelId }
+              onChange={ e => handleChange('maturityLevelId', e) }
               label='Maturity Level'
             >
               <Option text='Amber' value='1' />
@@ -83,10 +91,10 @@ const LogAchievement = ({ open, onClose }) => {
           </StyledInlineWrapper>
           <StyledInlineWrapper align='right'>
             <DateInput
-              id='date'
-              name='date'
-              value={ values.date }
-              onChange={ e => handleChange('date', e) }
+              id='achievementDate'
+              name='achievementDate'
+              value={ values.achievementDate }
+              onChange={ e => handleChange('achievementDate', e) }
               allowEmptyValue
               label='Date of Achievement'
               inputProps={ { inputWidth: 100 } }
@@ -94,10 +102,10 @@ const LogAchievement = ({ open, onClose }) => {
           </StyledInlineWrapper>
         </StyledInlineWrapper>
         <Textarea
-          id='description'
-          name='description'
-          value={ values.description }
-          onChange={ e => handleChange('description', e) }
+          id='comment'
+          name='comment'
+          value={ values.comment }
+          onChange={ e => handleChange('comment', e) }
           label='Description of Achievement'
         />
       </Form>
@@ -107,7 +115,8 @@ const LogAchievement = ({ open, onClose }) => {
 
 LogAchievement.propTypes = {
   open: PropTypes.bool,
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  logAchievement: PropTypes.func
 };
 
 export default LogAchievement;
