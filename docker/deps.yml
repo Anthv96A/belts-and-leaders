@@ -19,7 +19,7 @@ services:
         retries: 10
 
   server:
-    image: paulhannon/beltsandleaders.server:v1.2.0
+    image: paulhannon/beltsandleaders.server:v1.3.0
     container_name: server
     ports:
       - 5000:80
