@@ -3,7 +3,7 @@ import * as types from '../types/index';
 const maturityCategoriesReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.RETRIEVE_MATURITY_CATEGORIES:
-      return [...payload.maturityCategories];
+      return payload?.maturityCategories?.length > 0 ? [...payload.maturityCategories] : [];
     case types.GET_MATURITY_CATEGORY:
       return state.find(u => u.id === payload.id);
     case types.CREATE_MATURITY_CATEGORY:

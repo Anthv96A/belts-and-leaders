@@ -20,6 +20,16 @@ describe('Maturity Categories Reducer', () => {
     expect(result[0]).toEqual(maturityCategory);
   });
 
+  it('Should return an empty array if maturity categories from payload', () => {
+    const state = mockState();
+    const payload = {
+      maturityCategories: []
+    };
+
+    const result = maturityCategoriesReducer(state, { type: types.RETRIEVE_MATURITY_CATEGORIES, payload });
+    expect(result.length).toEqual(0);
+  });
+
   it('Should get a maturity category from state', () => {
     const maturityCategory = createMaturityCategory();
     const state = mockState(mock => mock.push(maturityCategory));

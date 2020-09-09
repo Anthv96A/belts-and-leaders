@@ -20,6 +20,16 @@ describe('Maturity Levels Reducer', () => {
     expect(result[0]).toEqual(maturityLevel);
   });
 
+  it('Should return an empty array if maturity levels from payload', () => {
+    const state = mockState();
+    const payload = {
+      maturityLevels: []
+    };
+
+    const result = maturityLevelsReducer(state, { type: types.RETRIEVE_MATURITY_LEVELS, payload });
+    expect(result.length).toEqual(0);
+  });
+
   it('Should get a maturity level from state', () => {
     const maturityLevel = createMaturityLevel();
     const state = mockState(mock => mock.push(maturityLevel));

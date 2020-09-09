@@ -3,7 +3,7 @@ import * as types from '../types/index';
 const maturityLevelsReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.RETRIEVE_MATURITY_LEVELS:
-      return [...payload.maturityLevels];
+      return payload?.maturityLevels?.length > 0 ? [...payload.maturityLevels] : [];
     case types.GET_MATURITY_LEVEL:
       return state.find(u => u.id === payload.id);
     case types.CREATE_MATURITY_LEVEL:

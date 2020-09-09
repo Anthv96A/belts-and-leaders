@@ -3,7 +3,7 @@ import * as types from '../types/index';
 const achievementsReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.RETRIEVE_ACHIEVEMENTS:
-      return [...payload.achievements];
+      return payload?.achievements?.length > 0 ? [...payload.achievements] : [];
     case types.GET_ACHIEVEMENT:
       return state.find(u => u.id === payload.id);
     case types.CREATE_ACHIEVEMENT:

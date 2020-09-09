@@ -3,7 +3,7 @@ import * as types from '../types/index';
 const userReducer = (state = [], { type, payload }) => {
   switch (type) {
     case types.RETRIEVE_USERS:
-      return [...payload.users];
+      return payload?.users?.length > 0 ? [...payload.users] : [];
     case types.GET_USER:
       return state.find(u => u.id === payload.id);
     case types.CREATE_USER:

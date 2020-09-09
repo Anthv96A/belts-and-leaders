@@ -20,6 +20,16 @@ describe('Achievement Reducer', () => {
     expect(result[0]).toEqual(achievement);
   });
 
+  it('Should return an empty array if no achievements from payload', () => {
+    const state = mockState();
+    const payload = {
+      achievements: []
+    };
+
+    const result = achievementsReducer(state, { type: types.RETRIEVE_ACHIEVEMENTS, payload });
+    expect(result.length).toEqual(0);
+  });
+
   it('Should get a achievement from state', () => {
     const achievement = createAchievement();
     const state = mockState(mock => mock.push(achievement));

@@ -20,6 +20,16 @@ describe('User Reducer', () => {
     expect(result[0]).toEqual(user);
   });
 
+  it('Should return an empty array if no users are found', () => {
+    const state = mockState();
+    const payload = {
+      users: []
+    };
+
+    const result = userReducer(state, { type: types.RETRIEVE_USERS, payload });
+    expect(result.length).toEqual(0);
+  });
+
   it('Should get a user from state', () => {
     const user = createUser();
     const state = mockState(mock => mock.push(user));
