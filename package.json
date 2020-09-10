@@ -26,9 +26,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "docker-up": "rm -rf node_modules/ && docker-compose -f ./docker/deps.yml up -d && docker-compose -f ./docker/api.yml up react-dev",
+    "docker-up": "rm -rf node_modules/ && docker-compose -f ./docker/deps.yml up -d && docker-compose -f ./docker/api.yml up react-client",
     "docker-down": "docker-compose -f ./docker/deps.yml down && docker-compose -f ./docker/api.yml down",
-    "dev": "npm install && CHOKIDAR_USEPOLLING=true && npm start",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "eslint ./src --fix"
