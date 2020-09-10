@@ -12,9 +12,9 @@ export const getMaturityLevel = id => ({
 
 export const retrieveMaturityLevels = () => {
   return async (dispatch) => {
-    const maturitys = await httpProvider.getAsync(routes.maturityLevelsRoot);
-    dispatch({ type: types.RETRIEVE_USERS, payload: { maturitys } });
-    return maturitys;
+    const { maturityLevels } = await httpProvider.getAsync(routes.maturityLevelsRoot);
+    dispatch({ type: types.RETRIEVE_MATURITY_LEVELS, payload: { maturityLevels } });
+    return maturityLevels;
   };
 };
 

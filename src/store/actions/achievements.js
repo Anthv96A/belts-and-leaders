@@ -19,8 +19,9 @@ export const retrieveAchievements = () => {
 };
 
 export const createAchievement = (createdAchievement) => {
-  return async (dispatch, getState) => {
-    createdAchievement.userId = getState().auth.account?.idToken?.sub;
+  return async (dispatch) => {
+    createdAchievement.userId = 1;// getState().auth.account?.idToken?.sub;
+    // createdAchievement.maturityLevelId = 1;// getState().auth.account?.idToken?.sub;
     const achievement = await httpProvider.createAsync(routes.achievementsRoot, createdAchievement);
     dispatch({ type: types.CREATE_ACHIEVEMENT, payload: { achievement } });
     return achievement;

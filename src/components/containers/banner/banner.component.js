@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'carbon-react/lib/components/tabs';
 import Button from 'carbon-react/lib/components/button';
@@ -12,8 +12,11 @@ import authProvider from '../../../azure/authProvider';
 import LogAchievement from '../log-achievement';
 import UserProfile from '../user-profile';
 import { createAchievement } from '../../../store/actions/achievements';
+import { retrieveMaturityLevels } from '../../../store/actions/maturityLevels';
 
-const Banner = ({ auth, logAchievement }) => {
+const Banner = ({
+  auth, logAchievement, getMaturityLevels, maturityLevels
+}) => {
   const [open, setOpen] = useState(false);
 
   const displayText = (auth.isAuth && auth.account.name)
@@ -23,6 +26,13 @@ const Banner = ({ auth, logAchievement }) => {
   const loginOrLogAchievement = (auth.isAuth)
     ? <Button onClick={ () => setOpen(true) } buttonType='primary'>Log Achievement</Button>
     : <AzureAD provider={ authProvider }>{({ login }) => <Button onClick={ login } buttonType='primary'>Sign In</Button> }</AzureAD>;
+
+
+  useEffect(() => {
+    (async () => {
+      await getMaturityLevels();
+    })();
+  }, [getMaturityLevels]);
 
   return (
     <>
@@ -43,7 +53,9 @@ const Banner = ({ auth, logAchievement }) => {
         </Tabs>
       </BannerWrapper>
       <LogAchievement
-        logAchievement={ logAchievement } open={ open }
+        logAchievement={ logAchievement }
+        maturityLevels={ maturityLevels }
+        open={ open }
         onClose={ () => setOpen(false) }
       />
     </>
@@ -52,15 +64,19 @@ const Banner = ({ auth, logAchievement }) => {
 
 Banner.propTypes = {
   auth: PropTypes.object,
-  logAchievement: PropTypes.func
+  maturityLevels: PropTypes.array,
+  logAchievement: PropTypes.func,
+  getMaturityLevels: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  maturityLevels: state.maturityLevels
 });
 
 const mapDispatchToProps = dispatch => ({
-  logAchievement: achievement => dispatch(createAchievement(achievement))
+  logAchievement: achievement => dispatch(createAchievement(achievement)),
+  getMaturityLevels: () => dispatch(retrieveMaturityLevels())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Banner);

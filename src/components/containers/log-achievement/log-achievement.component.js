@@ -15,7 +15,9 @@ const initialState = {
   comment: ''
 };
 
-const LogAchievement = ({ open, onClose, logAchievement }) => {
+const LogAchievement = ({
+  open, onClose, logAchievement, maturityLevels
+}) => {
   const [values, setValues] = useState(initialState);
 
   const [isDisabled, setIsDisabled] = useState(
@@ -24,24 +26,25 @@ const LogAchievement = ({ open, onClose, logAchievement }) => {
 
   const handleChange = useCallback((id, e) => {
     const newValue = id === 'achievementDate' ? e.target.value.rawValue : e.target.value;
-
     setValues({ ...values, [id]: newValue });
   }, [values]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await logAchievement(values);
+      await logAchievement({ ...values, maturityLevelId: Number(values.maturityLevelId) });
     } finally {
       setValues(initialState);
       onClose();
     }
   };
 
+
   useEffect(() => {
+    console.log(maturityLevels);
     if (values.category.length && values.maturityLevelId.length && values.achievementDate.length) setIsDisabled(false);
     else if (!isDisabled) setIsDisabled(true);
-  }, [isDisabled, values.category.length, values.maturityLevelId.length, values.achievementDate.length]);
+  }, [isDisabled, values.category.length, values.maturityLevelId.length, values.achievementDate.length, maturityLevels]);
 
   return (
     <Dialog
@@ -83,10 +86,14 @@ const LogAchievement = ({ open, onClose, logAchievement }) => {
               onChange={ e => handleChange('maturityLevelId', e) }
               label='Maturity Level'
             >
-              <Option text='Amber' value='1' />
-              <Option text='Black' value='2' />
-              <Option text='Blue' value='3' />
-              <Option text='Brown' value='4' />
+              { maturityLevels.map((ml) => {
+                return (
+                  <Option
+                    key={ ml.id } text={ ml.beltLevel }
+                    value={ ml.id.toString() }
+                  />
+                );
+              })}
             </Select>
           </StyledInlineWrapper>
           <StyledInlineWrapper align='right'>
@@ -116,7 +123,8 @@ const LogAchievement = ({ open, onClose, logAchievement }) => {
 LogAchievement.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
-  logAchievement: PropTypes.func
+  logAchievement: PropTypes.func,
+  maturityLevels: PropTypes.array
 };
 
 export default LogAchievement;
